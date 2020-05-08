@@ -30,9 +30,10 @@ app.get('/', (req, res) => {
     res.send('<h1>Backend Home</h1>');
 });
 
+
+// WEB SOCKETS
 io.on('connection', (socket) => {
     socket.on('entered', (user) => {
-        console.log(user + " joined the chat.");
         io.emit('user joined', { user: user });
     });
 
@@ -40,15 +41,16 @@ io.on('connection', (socket) => {
     });
 
     socket.on('message sent', (data) => {
-        console.log(data.user + ": " + data.message);
         io.emit('msg received', { user: data.user, message: data.message });
     });
 });
 
 
 // Connect to DB
-mongoose.connect(process.env.DB_CONNECTION, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
-
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
+    .catch(function (reason) {
+        console.log('Unable to connect to the mongodb instance. Error: ', reason);
+    });
 
 // listen to the server
 http.listen(3000, () => { console.log("Server is running.") });
