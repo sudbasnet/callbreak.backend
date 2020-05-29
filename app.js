@@ -14,11 +14,15 @@ app.use(express.json());
 app.use(cors({ origin: process.env.ANGULAR_PORT }));
 
 //ROUTES
-//------
 
 //handle login and register
 const authRoute = require('./routes/auth');
 app.use('/user', authRoute);
+
+//handle callbreak game creation and game update
+const callbreakRoute = require('./routes/callbreak');
+app.use('/callbreak', authorize);
+app.use('/callbreak', callbreakRoute);
 
 // handle viewing games-history
 const historyRoute = require('./routes/history');

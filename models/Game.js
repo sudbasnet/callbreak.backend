@@ -1,38 +1,132 @@
 const mongoose = require('mongoose');
 
-const GameDetails = mongoose.Schema({
-    gameId: {
-        type: Number,
-        required: true
-    },
-    player1: {
+// we will use mongoDb's _id field as the game's id
+const GameStatus = mongoose.Schema({
+    status: {
         type: String,
         required: true
     },
-    player2: {
-        type: String,
-        required: true
-    },
-    player3: {
-        type: String,
-        required: true
-    },
-    player4: {
-        type: String,
-        required: true
-    },
-    winner: {
-        type: String,
+    players: {
+        type: {
+            player1: {
+                type: {
+                    id: {
+                        type: Number,
+                        required: true
+                    },
+                    cards: {
+                        type:
+                        {
+                            spades: [String],
+                            hearts: [String],
+                            clubs: [String],
+                            diamonds: [String]
+                        }
+                    }
+                }
+            },
+            player2: {
+                type: {
+                    id: {
+                        type: Number,
+                        required: true
+                    },
+                    cards: {
+                        type:
+                        {
+                            spades: [String],
+                            hearts: [String],
+                            clubs: [String],
+                            diamonds: [String]
+                        },
+                        required: false
+                    }
+                }
+            },
+            player3: {
+                type: {
+                    id: {
+                        type: Number,
+                        required: true
+                    },
+                    cards: {
+                        type:
+                        {
+                            spades: [String],
+                            hearts: [String],
+                            clubs: [String],
+                            diamonds: [String]
+                        }
+                    }
+                }
+            },
+            player4: {
+                type: {
+                    id: {
+                        type: Number,
+                        required: true
+                    },
+                    cards: {
+                        type:
+                        {
+                            spades: [String],
+                            hearts: [String],
+                            clubs: [String],
+                            diamonds: [String]
+                        }
+                    }
+                }
+            }
+        },
         required: false
     },
-    startTime: {
+    start: {
         type: Date,
         default: Date.now
     },
-    endTime: {
+    end: {
         type: Date,
         default: Date.now
+    },
+    gameNumber: {
+        type: Number,
+        required: false
+    },
+    round: {
+        type: {
+            num: Number,
+            suit: String,
+            overridden: Boolean,
+            cardsOnTheTable: [String],
+            turn: Number,
+            nextPlayer: String,
+            winning: String
+        },
+        required: false
+    },
+    points: {
+        type: {
+            total: {
+                type: {
+                    player1: Number,
+                    player2: Number,
+                    player3: Number,
+                    player4: Number,
+                },
+                required: false
+            },
+            currentgame: {
+                type: {
+                    player1: Number,
+                    player2: Number,
+                    player3: Number,
+                    player4: Number,
+                },
+                required: false
+            }
+        },
+        required: false
     }
 });
 
-module.exports = mongoose.model('Game', GameDetails);
+module.exports = mongoose.model('Game', GameStatus);
