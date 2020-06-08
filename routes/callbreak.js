@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Game = require('../models/Game');
-const CardDeck = require('../library/CardDeck');
+const CardDeck = require('../services/CardDeck');
 
 router.post('/create', async (req, res) => {
     const game = new Game({
