@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const Game = require('../models/Game');
-const CardDeck = require('../services/CardDeck');
+const Game = require('../../models/Game');
+const CardDeck = require('../../entities/CardDeck');
 
-router.post('/create', async (req, res) => {
+router.post('/create', async (req, res, next) => {
     const game = new Game({
         status: "Waiting",
         players: {

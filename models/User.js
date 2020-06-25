@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
     active: {
         type: Boolean,
         default: false
+    },
+    validationToken: {
+        type: String,
+        required: false
     }
 });
 

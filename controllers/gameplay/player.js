@@ -1,0 +1,1 @@
+// this is the bot that will play a game if no players are available

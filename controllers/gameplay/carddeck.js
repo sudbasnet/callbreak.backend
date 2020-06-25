@@ -1,4 +1,4 @@
-class CardDeck {
+module.exports = class CardDeck {
     constructor() {
         this.suites = ["Hearts", "Spades", "Diamonds", "Clubs"];
         this.faceCards = ["King", "Queen", "Jack", "Ace"];
@@ -25,13 +25,10 @@ class CardDeck {
         while (deck.length > 0) {
             pos = this.getRandomLocation(deck.length);
             dealt[i % 4].push(deck[pos]);
-            // remove 1 card from position "pos"
-            deck.splice(pos, 1);
+            deck.splice(pos, 1); // remove 1 card from position "pos"
             i++;
         }
 
         return dealt;
     }
 }
-
-module.exports = CardDeck;
