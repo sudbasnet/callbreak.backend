@@ -19,14 +19,7 @@ const userSchema = new mongoose.Schema({
         max: 1024,
         min: 6
     },
-    dateCreated: {
-        type: Date,
-        required: true
-    },
-    dateUpdated: {
-        type: Date,
-        default: Date.now
-    },
+
     active: {
         type: Boolean,
         default: false
@@ -35,6 +28,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: false
     }
-});
+},
+    { timestamps: true }
+);
 
 module.exports = mongoose.model('User', userSchema);

@@ -1,30 +1,32 @@
 const express = require('express');
 
-const path = require('path');
-
 const app = express();
 
-const mongoose = require('mongoose');
+const path = require('path');
 
-const session = require('express-session');
+const mongoose = require('mongoose');
 
 require('dotenv').config();
 
 const cors = require('cors');
 
-// Views
-app.set('view engine', 'ejs');
-app.set('views', 'views');
+const errorHandler = require('./middlewares/error-handler');
+
+// Routes
+const userRoutes = require('./routes/user');
 
 // Middlewares
 app.use(express.json());
 app.use(cors({ origin: process.env.ANGULAR_PORT }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Routes
+app.use('/user', userRoutes);
+
 app.get('/', (req, res, next) => {
-    res.render('index');
+    res.send({ message: 'Default route' });
 });
+
+app.use(errorHandler);
 
 // Database Connection
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
