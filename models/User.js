@@ -19,14 +19,15 @@ const userSchema = new mongoose.Schema({
         max: 1024,
         min: 6
     },
-
     active: {
         type: Boolean,
         default: false
     },
-    validationToken: {
-        type: String,
-        required: false
+    verification: {
+        type: { token: { type: String }, expires: { type: Date } }
+    },
+    passwordReset: {
+        type: { token: { type: String }, expires: { type: Date } }
     }
 },
     { timestamps: true }

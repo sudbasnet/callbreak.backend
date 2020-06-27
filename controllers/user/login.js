@@ -8,20 +8,16 @@ const jwt = require('jsonwebtoken');
 
 module.exports = async (req, res, next) => {
     try {
-        const inactiveUser = await User.findOne({ email: req.body.email, active: false });
-        if (inactiveUser) {
-            throw customError('Please verify email', 401, null);
-        }
-        const user = await User.findOne({ email: req.body.email, active: true });
+        const user = await User.findOne({ email: req.body.email });
         if (!user) {
             throw customError('Email or password is incorrect.', 401, null);
         }
-        const isValidPassword = await bcrypt.compare(req.body.password, user.password);
-        if (!validPassword) {
+        const isCorrectPassword = await bcrypt.compare(req.body.password, user.password);
+        if (!isCorrectPassword) {
             throw customError('Email or password is incorrect.', 401, null);
         }
-        const token = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET);
-        res.status(200).json({ _id: user._id, name: user.name, email: user.email, token: token });
+        const jwtToken = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET);
+        res.status(200).json({ _id: user._id, name: user.name, email: user.email, token: jwtToken });
     }
     catch (err) {
         next(err);

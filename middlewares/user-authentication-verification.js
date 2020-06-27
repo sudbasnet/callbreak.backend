@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const customError = require('../helpers/custom-error');
 
-module.exports = async (req, res, next) => {
+module.exports = (req, res, next) => {
     const authorizationHeader = req.get('Authorization');
     if (!authorizationHeader) {
         throw customError('Unauthorized Access', 401, null);
