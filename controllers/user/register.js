@@ -1,22 +1,12 @@
-require('dotenv').config();
-
 const User = require('../../models/User');
 
 const bcrypt = require('bcryptjs');
-
-const nodemailer = require('nodemailer');
-
-const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 const { validationResult } = require('express-validator');
 
 const customError = require('../../helpers/custom-error');
 
 const accountVerificationEmail = require('../../helpers/account-verification-email');
-
-const emailTransporter = nodemailer.createTransport(sendgridTransport({
-    auth: { api_key: process.env.SENDGRID_API_KEY }
-}));
 
 module.exports = async (req, res, next) => {
     try {

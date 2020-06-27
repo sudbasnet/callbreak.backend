@@ -1,4 +1,5 @@
 const User = require('../../models/User');
+
 const customError = require('../../helpers/custom-error');
 
 // GET: http://localhost:xxxxx/user/delete_account
