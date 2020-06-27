@@ -6,29 +6,23 @@ const { validationResult } = require('express-validator');
 
 const customError = require('../../helpers/custom-error');
 
-module.exports = (req, res, next) => {
-    const validationErrors = validationResult(req);
+module.exports = async (req, res, next) => {
+    try {
+        const validationErrors = validationResult(req);
+        if (!validationErrors.isEmpty()) {
+            throw customError(message = 'Validation has Failed', status = 422, details = validationErrors.array());
+        }
 
-    if (!validationErrors.isEmpty()) {
-        throw customError(message = 'Validation has Failed', status = 422, details = validationErrors.array());
-    }
-
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
-
-    bcrypt
-        .genSalt(10).then(salt => {
-            bcrypt
-                .hash(password, salt).then(hashedPassword => {
-                    const newUser = new User({ name: name, email: email, password: hashedPassword });
-                    return newUser.save();
-                })
-                .then(newUser => {
-                    res.status(201).json({ message: 'User created, verify email', userId: newUser._id });
-                })
-                .catch(err => {
-                    next(err);
-                })
+        const salt = await bcrypt.genSalt(12);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        const newUser = new User({
+            name: req.body.name, email: req.body.email, password: hashedPassword
         });
+
+        const savedUser = await newUser.save();
+        res.status(201).json({ message: 'User created, verify email', userId: newUser._id });
+    }
+    catch (err) {
+        next(err);
+    }
 };

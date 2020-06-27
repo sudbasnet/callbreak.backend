@@ -15,7 +15,15 @@ module.exports =
                 return User.findOne({ email: value, active: true })
                     .then(user => {
                         if (user) {
-                            return Promise.reject('E-mail already in use');
+                            return Promise.reject('E-mail is already registered');
+                        }
+                    });
+            })
+            .custom((value, { req }) => {
+                return User.findOne({ email: value, active: false })
+                    .then(user => {
+                        if (user) {
+                            return Promise.reject('E-mail is already registered. Please verify.');
                         }
                     });
             })
