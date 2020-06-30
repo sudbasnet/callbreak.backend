@@ -4,13 +4,14 @@ const User = require('../models/User');
 
 const nodemailer = require('nodemailer');
 
-const sendgridTransport = require('nodemailer-sendgrid-transport');
+const nodemailerSendgrid = require('nodemailer-sendgrid');
 
 const crypto = require('crypto');
 
-const emailTransporter = nodemailer.createTransport(sendgridTransport({
-    auth: { api_key: process.env.SENDGRID_API_KEY }
-}));
+const emailTransporter = nodemailer.createTransport(
+    nodemailerSendgrid({
+        apiKey: process.env.SENDGRID_API_KEY
+    }));
 
 module.exports = async (userEmail) => {
     try {
@@ -35,7 +36,7 @@ module.exports = async (userEmail) => {
                     subject: 'Cardgames - Password Reset',
                     html: `<h1>To reset your password, please click on link below</h1>
                     <br>
-                    http://localhost:3200/user/` + savedUser._id + `/password_reset/` + savedUser.passwordReset.token
+                    http://localhost:`+ process.env.PORT + `/user/` + savedUser._id + `/password_reset/` + savedUser.passwordReset.token
                 });
             } catch (err) {
                 throw err;

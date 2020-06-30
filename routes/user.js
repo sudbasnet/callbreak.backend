@@ -25,15 +25,15 @@ router.put('/register', registrationDataValidation, userRegistration);
 
 router.post('/login', userLogin);
 
-router.get('/:userId/request_verification_email', requestVerificationEmail);
+router.get('/:userId/request-verification-email', requestVerificationEmail);
 
-router.get('/:userId/verify/:verification_code', verifyEmail);
+router.get('/:userId/verify/:verificationCode', verifyEmail);
 
-router.post('/request_password_reset', requestPasswordReset);
+router.post('/request-password-reset', requestPasswordReset);
 
-router.get('/:userId/password_reset/:reset_code', (req, res, next) => { }); /// requires frontend to configure
+router.get('/:userId/password-reset/:resetCode', (req, res, next) => { }); /// requires frontend to configure
 
-router.post('/:userId/password_reset/:reset_code', resetPassword);
+router.post('/:userId/password-reset/:resetCode', resetPassword);
 
 // routes that require authentication
 router.get('/deactivate', isUserAuthenticated, userDeactivation);

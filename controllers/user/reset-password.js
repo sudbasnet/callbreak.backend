@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 // POST localhost:xxxx/user/{userId}/reset/{reset_code}
 module.exports = async (req, res, next) => {
     const userId = req.params.userId;
-    const passwordResetToken = req.params.reset_code;
+    const passwordResetToken = req.params.resetCode;
     const newPassword = req.body.password;
 
     try {

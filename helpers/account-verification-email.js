@@ -4,13 +4,14 @@ const User = require('../models/User');
 
 const nodemailer = require('nodemailer');
 
-const sendgridTransport = require('nodemailer-sendgrid-transport');
+const nodemailerSendgrid = require('nodemailer-sendgrid');
 
 const crypto = require('crypto');
 
-const emailTransporter = nodemailer.createTransport(sendgridTransport({
-    auth: { api_key: process.env.SENDGRID_API_KEY }
-}));
+const emailTransporter = nodemailer.createTransport(
+    nodemailerSendgrid({
+        apiKey: process.env.SENDGRID_API_KEY
+    }));
 
 module.exports = async (userId) => {
     try {
@@ -34,7 +35,7 @@ module.exports = async (userId) => {
                     subject: 'Cardgames Registration',
                     html: `<h1>To complete registration, please click on link below</h1>
                     <br>
-                    <a href="http://localhost:3200/user/` + savedUser._id + `/verify/` + savedUser.verification.token + `">VERIFY ACCOUNT</a>`
+                    <a href="http://localhost:`+ process.env.PORT + `/user/` + savedUser._id + `/verify/` + savedUser.verification.token + `">VERIFY ACCOUNT</a>`
                 });
             } catch (err) {
                 throw err;
