@@ -12,8 +12,11 @@ const cors = require('cors');
 
 const errorHandler = require('./middlewares/error-handler');
 
+const isUserAuthenticated = require('./middlewares/user-authentication-verification');
+
 // Routes
 const userRoutes = require('./routes/user');
+const gameRoutes = require('./routes/game-definition');
 
 // Middlewares
 app.use(express.json());
@@ -21,6 +24,7 @@ app.use(cors({ origin: process.env.ANGULAR_PORT }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/user', userRoutes);
+app.use('/game', isUserAuthenticated, gameRoutes);
 
 app.get('/', (req, res, next) => {
     res.send({ message: 'Default route' });
@@ -35,7 +39,7 @@ mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedT
     });
 
 // Server 
-const server = app.listen(3200, () => { console.log("Server is running.") });
+const server = app.listen(process.env.PORT, () => { console.log("Server is running.") });
 
 // Socket.IO
 const io = require('socket.io')(server);
