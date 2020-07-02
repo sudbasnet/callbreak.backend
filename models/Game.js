@@ -6,6 +6,10 @@ const GameStatus = mongoose.Schema({
         type: String,
         required: true
     },
+    gameType: {
+        type: String,
+        required: true
+    },
     players: {
         type: {
             player1: {

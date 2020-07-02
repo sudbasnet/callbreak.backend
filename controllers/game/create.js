@@ -9,12 +9,13 @@ module.exports = async (req, res, next) => {
         const user = await User.findById(userId);
         const game = new Game({
             status: 'waiting',
+            gameType: gameType,
             players: { player1: { id: userId } }
         });
         const savedGame = await game.save();
         console.log(savedGame);
+        res.status(200).json({ gameType: gameType, gameId: savedGame._id });
     } catch (err) {
         throw err;
     }
-    res.status(200).json({ gameType: gameType, gameId: savedGame._id });
 }
