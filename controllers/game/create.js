@@ -1,5 +1,4 @@
 const Game = require('../../models/Game');
-const Player = require('../../models/User');
 const User = require('../../models/User');
 
 module.exports = async (req, res, next) => {
@@ -10,10 +9,9 @@ module.exports = async (req, res, next) => {
         const game = new Game({
             status: 'waiting',
             gameType: gameType,
-            players: { player1: { id: userId } }
+            players: [{ order: 0, userType: 'player', userId: user._id }]
         });
         const savedGame = await game.save();
-        console.log(savedGame);
         res.status(200).json({ gameType: gameType, gameId: savedGame._id });
     } catch (err) {
         throw err;

@@ -13,6 +13,8 @@ router.get('/:gameType/new', createGame); // returns a gameId
 
 router.get('/:gameType/:gameId/join', joinGame); // success method 200
 
+router.get('/:gameType/:gameId/start', joinGame); // success method 200
+
 router.get('/:gameType/:gameId/pause', pauseGame); // success method 200
 
 router.get('/:gameType/:gameId/leave', leaveGame); // succcess with method 200
