@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const customError = require('../helpers/custom-error');
+const customError = require('../_helpers/custom-error');
 
 module.exports = (req, res, next) => {
     const authorizationHeader = req.get('Authorization');

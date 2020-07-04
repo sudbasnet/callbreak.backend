@@ -1,6 +1,8 @@
-const User = require('../../models/User');
+const User = require('../user.model');
 
 const bcrypt = require('bcryptjs');
+
+const customError = require('../../_helpers/custom-error');
 
 // POST localhost:xxxx/user/{userId}/reset/{reset_code}
 module.exports = async (req, res, next) => {

@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const User = require('../models/User');
+const User = require('../user/user.model');
 
 const nodemailer = require('nodemailer');
 
@@ -13,7 +13,7 @@ const emailTransporter = nodemailer.createTransport(
         apiKey: process.env.SENDGRID_API_KEY
     }));
 
-module.exports = async (userId) => {
+module.exports = async (userEmail) => {
     try {
         crypto.randomBytes(32, async (err, buffer) => {
             try {
@@ -22,20 +22,21 @@ module.exports = async (userId) => {
                 }
                 const token = buffer.toString('hex');
 
-                const user = await User.findById(userId);
-                if (user.active === true) {
-                    throw Error('User is already verified.');
+                const user = await User.findOne({ email: userEmail });
+                if (!user) {
+                    throw Error('User does not exist');
                 }
-                user.verification = { token: token, expires: Date.now() + 3600000 };
+
+                user.passwordReset = { token: token, expires: Date.now() + 3600000 };
                 const savedUser = await user.save();
 
                 sentEmail = await emailTransporter.sendMail({
                     to: savedUser.email,
                     from: 'restapi201@gmail.com',
-                    subject: 'Cardgames Registration',
-                    html: `<h1>To complete registration, please click on link below</h1>
+                    subject: 'Cardgames - Password Reset',
+                    html: `<h1>To reset your password, please click on link below</h1>
                     <br>
-                    <a href="http://localhost:`+ process.env.PORT + `/user/` + savedUser._id + `/verify/` + savedUser.verification.token + `">VERIFY ACCOUNT</a>`
+                    http://localhost:`+ process.env.PORT + `/user/` + savedUser._id + `/password_reset/` + savedUser.passwordReset.token
                 });
             } catch (err) {
                 throw err;

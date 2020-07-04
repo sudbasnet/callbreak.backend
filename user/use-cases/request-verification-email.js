@@ -1,6 +1,8 @@
 require('dotenv').config();
 
-const accountVerificationEmail = require('../../helpers/account-verification-email');
+const accountVerificationEmail = require('../../_helpers/account-verification-email');
+
+const customError = require('../../_helpers/custom-error');
 
 // GET: localhost:xxxx/user/{userId}/request-verification-email
 module.exports = async (req, res, next) => {

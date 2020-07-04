@@ -1,6 +1,6 @@
-const User = require('../../models/User');
+const User = require('../user.model');
 
-const customError = require('../../helpers/custom-error');
+const customError = require('../../_helpers/custom-error');
 
 // GET: http://localhost:xxxxx/user/deactivate
 module.exports = async (req, res, next) => {
