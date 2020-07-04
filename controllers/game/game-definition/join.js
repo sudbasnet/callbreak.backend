@@ -19,7 +19,13 @@ module.exports = async (req, res, next) => {
         }
 
         if (game.players.length < 5) {
-            game.players.push({ order: game.players.length, userType: 'player', userId: user._id });
+            game.players.push({
+                order: game.players.length,
+                userType: 'player',
+                userId: user._id,
+                pointsTotal: 0,
+                pointsCurrentGame: 0
+            });
             game.end = Date.now();
             const savedGame = await game.save();
             res.status(200).json(savedGame);

@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
         const game = await Game.findById(gameId);
 
         if (!game) {
-            throw customError('The game does not exist anymore.', 404, null);
+            throw customError('The game does not exist.', 404, null);
         }
 
         const isValidPlayer = game.players.map(x => x.userId).includes(user._id);
@@ -27,12 +27,22 @@ module.exports = async (req, res, next) => {
             }
 
             for (let i = 0; i < 4; i++) {
-                console.log(dealtCardsObject.dealt[i]);
                 game.players[i].cards = dealtCardsObject.dealt[i];
             }
 
             game.status = 'on';
-            game.end = Date.now();
+            game.gameNumber = 1;
+            game.round = {
+                num: 1, // starts as round 1
+                suit: null, // not thrown yet, so we dont know
+                overridden: null, // is the turn overridden by a spade?
+                cardsOnTheTable: [], // None at the start of the game
+                turn: 1, // first turn
+                nextPlayer: 0, // players.order
+                winning: null
+            };
+            game.end = Date.now(); // gets updated at the end of each turn
+
             const savedGame = await game.save();
             res.status(200).json(savedGame);
         } else {

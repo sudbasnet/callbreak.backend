@@ -11,9 +11,11 @@ module.exports = async (req, res, next) => {
             status: 'waiting',
             gameType: gameType,
             players: [{
-                order: 0,
+                order: game.players.length,
                 userType: 'player',
-                userId: user._id
+                userId: user._id,
+                pointsTotal: 0,
+                pointsCurrentGame: 0
             }]
         });
         const savedGame = await game.save();

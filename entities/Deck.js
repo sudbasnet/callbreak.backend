@@ -37,13 +37,13 @@ module.exports = class Deck {
             randomCard = deck[randomPosition];
 
             if (randomCard.suit === 'hearts') {
-                dealtCards[cardsDealt % numberOfPlayers].hearts.push(randomCard);
+                dealtCards[cardsDealt % numberOfPlayers].hearts.push(randomCard.value);
             } else if (randomCard.suit === 'clubs') {
-                dealtCards[cardsDealt % numberOfPlayers].clubs.push(randomCard);
+                dealtCards[cardsDealt % numberOfPlayers].clubs.push(randomCard.value);
             } else if (randomCard.suit === 'spades') {
-                dealtCards[cardsDealt % numberOfPlayers].spades.push(randomCard);
+                dealtCards[cardsDealt % numberOfPlayers].spades.push(randomCard.value);
             } else if (randomCard.suit === 'diamonds') {
-                dealtCards[cardsDealt % numberOfPlayers].diamonds.push(randomCard);
+                dealtCards[cardsDealt % numberOfPlayers].diamonds.push(randomCard.value);
             }
 
             deck.splice(randomPosition, 1); // remove 1 card from position "randomPosition"
