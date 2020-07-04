@@ -1,7 +1,7 @@
-const Game = require('../../models/Game');
-const User = require('../../models/User');
+const Game = require('../../../models/Game');
+const User = require('../../../models/User');
 
-const customError = require('../../helpers/custom-error');
+const customError = require('../../../helpers/custom-error');
 
 module.exports = async (req, res, next) => {
     const userId = req.userId;

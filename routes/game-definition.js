@@ -1,19 +1,17 @@
 const router = require('express').Router();
 
-const createGame = require('../controllers/game/create');
+const createGame = require('../controllers/game/game-definition/create');
 
-const joinGame = require('../controllers/game/join');
+const joinGame = require('../controllers/game/game-definition/join');
 
-const pauseGame = require('../controllers/game/pause');
+const pauseGame = require('../controllers/game/game-definition/pause');
 
-const leaveGame = require('../controllers/game/leave');
+const leaveGame = require('../controllers/game/game-definition/leave');
 
 // ROUTES
 router.get('/:gameType/new', createGame); // returns a gameId
 
 router.get('/:gameType/:gameId/join', joinGame); // success method 200
-
-router.get('/:gameType/:gameId/start', joinGame); // success method 200
 
 router.get('/:gameType/:gameId/pause', pauseGame); // success method 200
 
