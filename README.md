@@ -33,7 +33,7 @@ As far as the project design is concerned, it will have the following parts or f
     |-- [models] (models corrresponding to MongoDB schema)
     |-- [routes] (contains the api paths)
     |-- .env (hidden from git)
-    |-- app.js (main file)
+    |-- server.js (main file)
     |-- package.json
 |-- [frontend] (Angular 9)
     |-- [e2e]
@@ -62,21 +62,21 @@ As far as the project design is concerned, it will have the following parts or f
 **New Architecture**(trying to base it on Clean Coding architecture by Bob Martin)
 ```
 |-- [backend] (NodeJS, Express, MongoDB)
-    |-- [user] (models corrresponding to MongoDB schema)
+    |-- [user]
         |-- use-cases
             |-- (contains all modules that users have access to)
-        |-- user.model.js
-        |-- user.controller.js
+        |-- user.model.js (connects to mongoDB collection)
+        |-- user.controller.js ( pulls all the use-cases in one place )
         |-- user.routes.js
     |-- [game]
         |-- use-cases
-            |-- game-definition(contains all modules that users have access to)
+            |-- game-definition
                 |-- (contains all the game definition such as create, join, start, delete)
             |-- game-specific
                 |-- callbreak
                     |-- (contains all modules for callbreak specific logic)
-        |-- game.model.js
-        |-- game.controller.js
+        |-- game.model.js (connects to mongoDB collection)
+        |-- game.controller.js (pulls all the use-cases in one place)
         |-- game.routes.js
     |-- [middlewares]
         |-- (all the middlewares/interactors. Only these middlewares can connect different components)
