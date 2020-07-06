@@ -1,4 +1,6 @@
-const passwordResetEmail = require('../../helpers/password-reset-email');
+const passwordResetEmail = require('../../_helpers/password-reset-email');
+
+const customError = require('../../_helpers/custom-error');
 
 module.exports = async (req, res, next) => {
     const userEmail = req.body.email;

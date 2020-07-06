@@ -15,9 +15,8 @@ const errorHandler = require('./middlewares/error-handler');
 const isUserAuthenticated = require('./middlewares/user-authentication-verification');
 
 // Routes
-const userRoutes = require('./routes/user');
-const gameRoutes = require('./routes/game-definition');
-const callbreakRoutes = require('./routes/game-specific/callbreak');
+const userRoutes = require('./user/user.routes');
+const gameRoutes = require('./game/game.routes');
 
 // Middlewares
 app.use(express.json());
@@ -25,7 +24,6 @@ app.use(cors({ origin: process.env.ANGULAR_PORT }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/user', userRoutes);
-app.use('/game/callbreak', isUserAuthenticated, callbreakRoutes);
 app.use('/game', isUserAuthenticated, gameRoutes);
 
 app.get('/', (req, res, next) => {

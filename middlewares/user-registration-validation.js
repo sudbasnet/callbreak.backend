@@ -1,8 +1,8 @@
 const { body } = require('express-validator');
 
-const User = require('../models/User');
+const User = require('../user/user.model');
 
-const customError = require('../helpers/custom-error');
+const customError = require('../_helpers/custom-error');
 
 module.exports =
     [

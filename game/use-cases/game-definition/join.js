@@ -1,7 +1,6 @@
-const Game = require('../../../models/Game');
-const User = require('../../../models/User');
+const Game = require('../../game.model');
 
-const customError = require('../../../helpers/custom-error');
+const customError = require('../../../_helpers/custom-error');
 
 module.exports = async (req, res, next) => {
     const userId = req.userId;
@@ -9,10 +8,9 @@ module.exports = async (req, res, next) => {
     const gameId = req.params.gameId;
 
     try {
-        const user = await User.findById(userId);
         const game = await Game.findById(gameId);
 
-        const playerAlreadyJoined = game.players.map(x => x.userId).includes(user._id);
+        const playerAlreadyJoined = game.players.map(x => x.userId).includes(userId);
 
         if (playerAlreadyJoined) {
             throw customError('Cannot join same game again.', 500, null);
@@ -22,7 +20,7 @@ module.exports = async (req, res, next) => {
             game.players.push({
                 order: game.players.length,
                 userType: 'player',
-                userId: user._id,
+                userId: userId,
                 pointsTotal: 0,
                 pointsCurrentGame: 0
             });

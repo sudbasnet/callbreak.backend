@@ -1,12 +1,12 @@
-const User = require('../../models/User');
+const User = require('../user.model');
 
 const bcrypt = require('bcryptjs');
 
 const { validationResult } = require('express-validator');
 
-const customError = require('../../helpers/custom-error');
+const customError = require('../../_helpers/custom-error');
 
-const accountVerificationEmail = require('../../helpers/account-verification-email');
+const accountVerificationEmail = require('../../_helpers/account-verification-email');
 
 module.exports = async (req, res, next) => {
     try {

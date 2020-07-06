@@ -1,6 +1,6 @@
-const User = require('../../models/User');
+const User = require('../user.model');
 
-const customError = require('../../helpers/custom-error');
+const customError = require('../../_helpers/custom-error');
 
 // localhost:xxxx/user/{userId}/verify/{verification_code}
 module.exports = async (req, res, next) => {
