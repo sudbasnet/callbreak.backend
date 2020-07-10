@@ -19,23 +19,26 @@ const GameStatus = mongoose.Schema({
                     clubs: { type: [String] },
                     diamonds: { type: [String] },
                 }
-            }
+            },
+            bet: { type: Number }
         }],
         validate: [(playersArray) => playersArray.length <= 4, 'Game is full.'],
         required: true
     },
     start: { type: Date, default: Date.now },
     end: { type: Date, default: Date.now },
-    gameNumber: { type: Number },
-    round: {
+    gameNumber: { type: Number }, // 4 subgames in on main game
+    round: { // 13 rounds in each subgame
         type: {
             num: { type: Number },
-            suit: { type: String },
-            overridden: { type: Boolean },
-            cardsOnTheTable: { type: [String] },
-            turn: { type: Number },
-            nextPlayer: { type: String },
-            winning: { type: String }
+            starterPlayer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, //player that started the round
+            playedTheirHands: { type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] },
+            starterSuit: { type: String },
+            overriddenBySpade: { type: Boolean }, // has spades taken over?
+            cardsOnTheTable: { type: [String] }, // 4 or less cards
+            turn: { type: Number }, // 4 turns in each round
+            nextPlayer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // the player who can make a move (player's ID)
+            winningThisTurn: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true } // the player that's winning this round so far
         }
     }
 });

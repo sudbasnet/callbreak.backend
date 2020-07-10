@@ -1,4 +1,4 @@
-const Game = require('../../game.model');
+const Game = require('../game.model');
 
 module.exports = async (req, res, next) => {
     const userId = req.userId;
@@ -13,7 +13,8 @@ module.exports = async (req, res, next) => {
                 userType: 'player',
                 userId: userId,
                 pointsTotal: 0,
-                pointsCurrentGame: 0
+                pointsCurrentGame: 0,
+                bet: 0
             }]
         });
         const savedGame = await game.save();

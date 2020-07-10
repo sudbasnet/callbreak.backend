@@ -1,6 +1,6 @@
-const Game = require('../../game.model');
+const Game = require('../game.model');
 
-const customError = require('../../../_helpers/custom-error');
+const customError = require('../../_helpers/custom-error');
 
 module.exports = async (req, res, next) => {
     const userId = req.userId;
@@ -22,7 +22,8 @@ module.exports = async (req, res, next) => {
                 userType: 'player',
                 userId: userId,
                 pointsTotal: 0,
-                pointsCurrentGame: 0
+                pointsCurrentGame: 0,
+                bet: 0
             });
             game.end = Date.now();
             const savedGame = await game.save();

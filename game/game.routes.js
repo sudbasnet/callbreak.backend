@@ -3,7 +3,7 @@ const router = require('express').Router();
 const gameController = require('./game.controller');
 
 // CALLBREAK specific routes
-router.get('/:gameId/start', gameController.startCallbreak); // success method 200
+router.get('/callbreak/:gameId/start', gameController.callbreakStart); // success method 200
 
 // Other Routes
 router.get('/:gameType/new', gameController.createGame); // returns a gameId

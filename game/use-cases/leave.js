@@ -1,4 +1,4 @@
-const Game = require('../../game.model');
+const Game = require('../game.model');
 
 module.exports = (req, res, next) => {
     const userId = req.userId;

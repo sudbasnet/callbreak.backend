@@ -1,11 +1,15 @@
 module.exports = {
-    createGame: require('./use-cases/game-definition/create'),
+    createGame: require('./use-cases/create'),
 
-    joinGame: require('./use-cases/game-definition/join'),
+    joinGame: require('./use-cases/join'),
 
-    pauseGame: require('./use-cases/game-definition/pause'),
+    pauseGame: require('./use-cases/pause'),
 
-    leaveGame: require('./use-cases/game-definition/leave'),
+    leaveGame: require('./use-cases/leave'),
 
-    startCallbreak: require('./use-cases/game-specific/callbreak/start')
+    callbreakStart: require('./use-cases/game-specific/callbreak/start'),
+
+    callbreakValidMoves: require('./use-cases/game-specific/callbreak/valid-moves'),
+
+    callbreakBet: require('./use-cases/game-specific/callbreak/bet')
 }
