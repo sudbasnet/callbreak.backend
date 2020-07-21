@@ -5,7 +5,7 @@ module.exports = class Callback {
 
     }
 
-    validMoves = (cardsOnTable, playerCards) => {
+    static validMoves = (cardsOnTable, playerCards) => {
         if (cardsOnTable.length === 0) {
             return playerCards;
         }
@@ -31,5 +31,9 @@ module.exports = class Callback {
 
             }
         }
+    }
+
+    static winnerCardIndex(cardsOnTable) {
+
     }
 }
