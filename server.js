@@ -20,16 +20,9 @@ const gameRoutes = require('./game/game.routes');
 
 // Middlewares
 app.use(express.json());
-
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    next();
-});
-
-// app.use(cors({ origin: process.env.FRONTEND }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors({ origin: process.env.FRONTEND }));
+// app.use(express.static(path.join(__dirname, 'public'))); // not required for REST as not using anything public elements
+app.use(errorHandler);
 
 app.use('/user', userRoutes);
 app.use('/game', isUserAuthenticated, gameRoutes);
@@ -37,8 +30,6 @@ app.use('/game', isUserAuthenticated, gameRoutes);
 app.get('/', (req, res, next) => {
     res.send({ message: 'Default route' });
 });
-
-app.use(errorHandler);
 
 // Database Connection
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })

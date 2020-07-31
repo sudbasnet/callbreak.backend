@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
             status: 'waiting',
             gameType: gameType,
             players: [{
-                order: game.players.length,
+                order: 0,
                 userType: 'player',
                 userId: userId,
                 pointsTotal: 0,
