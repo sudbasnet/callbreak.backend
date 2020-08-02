@@ -7,6 +7,8 @@ module.exports = {
 
     leaveGame: require('./use-cases/leave'),
 
+    cancelGame: require('./use-cases/cancel'),
+
     callbreakStart: require('./use-cases/game-specific/callbreak/start'),
 
     callbreakValidMoves: require('./use-cases/game-specific/callbreak/valid-moves'),

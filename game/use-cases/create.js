@@ -8,6 +8,7 @@ module.exports = async (req, res, next) => {
         const game = new Game({
             status: 'waiting',
             gameType: gameType,
+            createdBy: userId,
             players: [{
                 order: 0,
                 userType: 'player',

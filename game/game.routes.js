@@ -8,6 +8,8 @@ router.get('/callbreak/:gameId/start', gameController.callbreakStart); // succes
 // Other Routes
 router.get('/:gameType/new', gameController.createGame); // returns a gameId
 
+router.delete('/:gameType/new', gameController.cancelGame);
+
 router.get('/:gameType/:gameId/join', gameController.joinGame); // success method 200
 
 router.get('/:gameType/:gameId/pause', gameController.pauseGame); // success method 200

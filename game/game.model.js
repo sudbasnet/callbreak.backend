@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 // we will use mongoDb's _id field as the game's id
 const GameStatus = mongoose.Schema({
     status: { type: String, required: true },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     gameType: { type: String, required: true },
     players: {
         type: [{
