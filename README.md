@@ -1,5 +1,6 @@
 # Backend
-Built on `nodeJS`, `expressJS`, `MongoDB`.
+Built on `nodeJS`, `expressJS`, `MongoDB`. <br>
+Typescript version of the Node application is available at: [Callbreak-Backend-Node-Typescript](https://github.com/sudbasnet/Callbreak-Backend-Node-Typescript)
 
 # Frontend
 Built on `Angular` (9)
